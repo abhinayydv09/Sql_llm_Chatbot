@@ -14,7 +14,9 @@ Built with **FastAPI** (backend) and **Streamlit** (frontend), powered by **Hugg
 - Lightweight FastAPI backend for inference.
 
 ---
-
+## 🖼️ Project Preview / Demo
+![Frontend UI](assets/frontend.png)
+---
 ## Project Structure
 
 ```
