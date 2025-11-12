@@ -29,7 +29,7 @@ class LLMHandler:
         try :
             response = self.client.text_generation(
                 prompt = full_prompt,
-                max_new_tokens =300,
+                max_new_tokens =600,
                 temperature = temperature,
                 )     
             return response.strip()
@@ -42,7 +42,7 @@ class LLMHandler:
                             {"role":"system","content":system_prompt},
                             {"role":"user", "content":user_prompt},
                         ],
-                        max_tokens = 200,
+                        max_tokens = 600,
                         temperature = temperature,
                     )
                     return response.choices[0].message["content"].strip()

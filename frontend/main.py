@@ -24,10 +24,20 @@ defaults = {
     "hf_token": "",
     "temperature": 0.2
 }
-
 for key, value in defaults.items():
     if key not in st.session_state:
         st.session_state[key] = value
+
+# -----------------------------
+# Custom CSS for smaller font in text areas
+# -----------------------------
+st.markdown("""
+    <style>
+    textarea {
+        font-size: 13px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # -----------------------------
 # Columns layout
@@ -38,20 +48,37 @@ left_col, right_col = st.columns([5, 2])
 # Left column: Main SQL generator
 # -----------------------------
 with left_col:
-    st.title(" SQL LLM Chatbot")
+    st.title("SQL LLM Chatbot")
 
     # Display current settings dynamically
     st.markdown(f"**Model:** `{st.session_state.model_name}`")
     st.markdown(f"**SQL Dialect:** `{st.session_state.sql_dialect}`")
 
-    schema = st.text_area("Database Schema", placeholder="CREATE TABLE ...", height=150)
-    user_query = st.text_area("Your Question", placeholder="Get all departments with avg salary > 50000", height=100)
+    # Database Schema input (larger)
+    schema = st.text_area(
+        "Database Schema",
+        placeholder="Enter Database Schema ...",
+        height=250,
+        max_chars=2000
+    )
 
+    # User Question(s) input (larger)
+    user_query = st.text_area(
+        "Your Question(s)",
+        placeholder="Questions ...",
+        height=180,
+        max_chars=1500
+    )
+
+    # Placeholder for token warning below inputs
+    hf_warning_placeholder = st.empty()
+
+    # Generate SQL button
     if st.button("Generate SQL"):
         if not schema.strip() or not user_query.strip():
             st.error("Please provide both schema and query!")
         elif not st.session_state.hf_token.strip():
-            st.error("Please set your HuggingFace token in LLM Settings on the right!")
+            hf_warning_placeholder.warning("⚠️ Please enter your HuggingFace token above to generate SQL!")
         else:
             try:
                 payload = {
@@ -66,8 +93,26 @@ with left_col:
 
                 if response.status_code == 200:
                     sql_query = response.json().get("sql_query", "")
-                    st.success(" Generated SQL Query:")
-                    st.code(sql_query, language="sql")
+
+                    if sql_query.strip():
+                        st.success("Generated SQL Queries:")
+                        # Split multiple queries by semicolon
+                        raw_queries = sql_query.split(";")
+                        queries = []
+                        for q in raw_queries:
+                            cleaned_q = q.replace("```sql", "").replace("```", "").strip()
+                            if cleaned_q:
+                                if not cleaned_q.endswith(";"):
+                                    cleaned_q += ";"
+                                queries.append(cleaned_q)
+
+                        for i, q in enumerate(queries, 1):
+                            st.markdown(f"**Query {i}:**")
+                            st.code(q, language="sql")
+                    else:
+                        st.info("No SQL generated.")
+                elif response.status_code == 401:
+                    hf_warning_placeholder.warning("⚠️ HuggingFace token expired or invalid! Please update it.")
                 else:
                     st.error(f"Failed to generate SQL: {response.text}")
 
