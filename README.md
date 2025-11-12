@@ -21,21 +21,18 @@ Built with **FastAPI** (backend) and **Streamlit** (frontend), powered by **Hugg
 sql_llm_chatbot/
 │
 ├── backend/
-│ ├── llm_handler.py # LLM integration
-│ └── sql_utils.py # SQL cleaning utilities
+│ ├── llm_handler.py       # LLM integration
+│ └── sql_utils.py         # SQL cleaning utilities
 │
 ├── frontend/
-│ ├── main.py # Streamlit frontend
+│ ├── main.py              # Streamlit frontend
 │ └── tabs/
-│ └── llm_settings.py # Settings panel for model, token, temperature
+│   └── llm_settings.py    # Settings panel for model, token, temperature
 │
-├── api.py # FastAPI backend
-├── requirements.txt # Python dependencies
-└── user_settings.json # Stores user settings (auto-generated)
+├── api.py                 # FastAPI backend
+├── requirements.txt       # Python dependencies
+└── test_llm.py            # Testing llm_handler
 ```
-
----
-
 
 ---
 
@@ -72,10 +69,10 @@ streamlit run frontend/main.py
 
 - Open the Streamlit app.
 - Go to LLM Settings on the right panel:
-- Enter your HuggingFace API token.
-- Select model and SQL dialect.
-- Adjust temperature if needed.
-- Save settings.
+  - Enter your HuggingFace API token.
+  - Select model and SQL dialect.
+  - Adjust temperature if needed.
+  - Save settings.
 - Enter your Database Schema and Natural Language Question.
 - Click Generate SQL to get the query.
 - Copy and use the generated SQL in your database.
@@ -128,3 +125,8 @@ Generated SQL:
 - Only columns and tables from the provided schema are used.
 - The app currently supports a single model, but other HuggingFace models can be added.
 - Keep your HuggingFace token secret and never share it publicly.
+
+---
+
+## Author
+Created by AY
