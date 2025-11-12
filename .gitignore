@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Streamlit / local files
+user_settings.json
