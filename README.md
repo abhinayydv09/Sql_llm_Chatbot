@@ -22,6 +22,10 @@ Built with **FastAPI** (backend) and **Streamlit** (frontend), powered by **Hugg
 ```
 sql_llm_chatbot/
 │
+├── assets/
+│ ├── Frontend.png         # Frontend UI img
+│ └── Output.png           # Output img
+│
 ├── backend/
 │ ├── llm_handler.py       # LLM integration
 │ └── sql_utils.py         # SQL cleaning utilities
@@ -117,8 +121,8 @@ Get the title and genre of movies that have never been rated by any user.
 ```
 
 
-Generated SQL:
-
+### Generated SQL:
+![Output](assets/Output.png) 
 
 ---
 
