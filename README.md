@@ -126,8 +126,8 @@ Get the title and genre of movies that have never been rated by any user.
 
 ---
 ## Live Demo
-- Streamlit Frontend: [https://sql-llm-chatbot.streamlit.app](https://sql-llm-chatbot.streamlit.app)
-- FastAPI Backend: [https://sql-llm-backend.onrender.com](https://sql-llm-backend.onrender.com)
+- Streamlit Frontend: [https://sqlllmchatbot.streamlit.app](https://sqlllmchatbot.streamlit.app)
+- FastAPI Backend: [https://sql-llm-chatbot.onrender.com](https://sql-llm-chatbot.onrender.com)
 
 ---
 
