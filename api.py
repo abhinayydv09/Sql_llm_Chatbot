@@ -6,6 +6,11 @@ from backend.sql_utils import clean_sql
 
 app = FastAPI(title="SQL LLM Chatbot API")
 
+@app.get("/")
+def root():
+    return {"message": "FastAPI backend is running!"}
+
+
 class SQLRequest(BaseModel):
     schema: str
     user_query: str
