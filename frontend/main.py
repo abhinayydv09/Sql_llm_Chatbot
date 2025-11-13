@@ -1,6 +1,9 @@
 import streamlit as st
 import requests
 from tabs import llm_settings
+import os
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 st.set_page_config(page_title="SQL LLM Chatbot", layout="wide")
 
@@ -89,7 +92,7 @@ with left_col:
                     "temperature": st.session_state.temperature
                 }
                 headers = {"Authorization": f"Bearer {st.session_state.hf_token}"}
-                response = requests.post("http://127.0.0.1:8000/generate_sql", json=payload, headers=headers)
+                response = requests.post(f"{BACKEND_URL}/generate_sql", json=payload, headers=headers)
 
                 if response.status_code == 200:
                     sql_query = response.json().get("sql_query", "")
